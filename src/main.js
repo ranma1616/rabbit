@@ -11,9 +11,12 @@ import router from './router'
 // getCategory().then(res => {
 //   console.log(res);
 // })
+// 引入全局插件
+import { componentPlugin } from './components'
 const app = createApp(App)
 
 app.use(createPinia())
+app.use(componentPlugin)
 app.use(router)
 app.use(lazyPlugin)
 app.mount('#app')
