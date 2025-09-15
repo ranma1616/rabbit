@@ -5,6 +5,7 @@ import HomeView from '@/views/Home/index.vue'
 import CategoryView from '@/views/Category/index.vue'
 import SubCategoryView from '@/views/subCategory/index.vue'
 import DetailView from '@/views/Detail/index.vue'
+import CartList from '@/views/CartList/index.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -28,12 +29,16 @@ const router = createRouter({
           path: '/detail/:id',
           component: DetailView,
         },
+        {
+          path: '/cartlist',
+          component: CartList
+        }
       ]
     },
     {
       path: '/login',
       component: LoginView,
-    },
+    }
   ],
   // 路由行为定制
   scrollBehavior () {

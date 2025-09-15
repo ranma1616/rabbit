@@ -68,10 +68,10 @@
               <!-- sku组件 -->
               <xtxSku :goods="goodDetail" @change="skuChange"/>
               <!-- 数据组件 -->
-
+              <el-input-number v-model="count"  @change="countChange" />
               <!-- 按钮组件 -->
               <div>
-                <el-button size="large" class="btn">
+                <el-button size="large" class="btn" @click="addCart">
                   加入购物车
                 </el-button>
               </div>
@@ -115,6 +115,8 @@ import { getDetail } from '@/apis/detail';
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import DetailHot from './components/DetailHot.vue';
+import { ElMessage } from 'element-plus';
+import { useCartStore } from '@/stores/cartStore';
 // import ImageView from '@/components/ImageView/index.vue'
 // import XtxSku from '@/components/XtxSku/index.vue'
 const route = useRoute()
@@ -122,14 +124,43 @@ const goodDetail = ref({})
 const getGoodDetail = async()=>{
   const res =  await getDetail(route.params.id)
   goodDetail.value = res.result
-  console.log(res);
+  // console.log(res);
 }
 onMounted(()=>{
   getGoodDetail()
 })
 // sku规格操作
+let skuObj = {}
 const skuChange = (sku)=>{
+  skuObj = sku
   console.log(sku);
+}
+// 商品个数
+const count = ref(1)
+// 改变方法
+const countChange = (count)=>{
+  console.log(count);
+}
+// 购物车
+const cartStore = useCartStore() 
+// 添加购物车的方法 
+const addCart = ()=>{
+  if (skuObj.skuId) {
+    // 规格已经选择 触发
+    cartStore.addCart({
+      id: goodDetail.value.id,
+      name: goodDetail.value.name,
+      picture: goodDetail.value.mainPictures[0],
+      price: goodDetail.value.price,
+      count:count.value,
+      skuId: skuObj.skuId,
+      attrsText: skuObj.specsText,
+      selected: true
+    })
+  } else {
+    // 规格没有选择
+    ElMessage.warning("请选择规格")
+  }
 }
 </script>
 

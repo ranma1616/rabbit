@@ -19,7 +19,7 @@
         <input type="text" placeholder="搜一搜">
       </div>
       <!-- 头部购物车 -->
-      
+      <HeadCart/>
     </div>
   </header>
 </template>
@@ -27,6 +27,7 @@
 <script setup>
 import { RouterLink } from 'vue-router';
 import { ref , onMounted} from 'vue';
+import HeadCart from './HeadCart.vue';
 // import { getCategoryAPI } from '@/apis/layout';
 // const categoryList = ref([])
 // const getCategory = async()=>{
