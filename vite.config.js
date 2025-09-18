@@ -36,5 +36,15 @@ export default defineConfig({
         `,
       }
     }
+  },
+  server: {
+    proxy: {
+      // 匹配真实后端域名的请求（关键：拦截对真实域名的请求）
+      'http://pcapi-xiaotuxian-front-devtest.itheima.net': {
+        target: 'http://pcapi-xiaotuxian-front-devtest.itheima.net', // 目标后端地址
+        changeOrigin: true, // 开启跨域（模拟请求来自后端域名）
+        // 无需 rewrite，因为请求路径不变
+      }
+    }
   }
 })
